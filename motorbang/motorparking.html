@@ -2,7 +2,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>ArcGIS API for JavaScript Tutorials: Display a map</title>
+    <title>摩托幫 重機停車場</title>
+	<meta property="og:url" content="https://mathewmeng.github.io/motorbang/">
+	<meta property="og:locate" content="zh_tw">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="摩托幫 重機停車場">
+	<meta property="og:description" content="幫你找到重機停車場!">
+	<meta property="og:image" content="https://imgur.com/a/ZfXzCER">
+
+
 
 	<link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.24/"></script>
@@ -27,13 +35,22 @@
 			"esri/widgets/Locate",
 			"esri/widgets/Track",
           	"esri/Graphic",
-			"esri/widgets/Search"
-			],function (esriConfig,Map, MapView,FeatureLayer,Locate,Track,Graphic,Search) {
+			"esri/widgets/Search",
+			],function (
+			esriConfig,Map,
+			MapView,
+			FeatureLayer,
+			Locate,
+			Track,
+			Graphic,
+			Search,
+			) {
 			
 		esriConfig.apiKey = "AAPKbcfc2e4d6a3d4725b32a568821f4de96t1ryxJb4dkIWaFc97HOtcV6tnLdbiH5t4P0tJ7xN4-Wsxj7VFfMJfH5V_9y1-Rr1";
 			
+
 		const map = new Map({
-		basemap: "arcgis-navigation" // Basemap layer service
+		basemap: "osm-light-gray" // Basemap layer service
   		});
 			  
 		const view = new MapView({
@@ -90,7 +107,7 @@
         "type": "simple-marker",
 		"color": [255, 255, 255],
       	"outline": {
-        	"color": [255, 129, 66],
+        	"color": [255, 186, 117],
         	"width": 2
         },
 	
@@ -101,11 +118,11 @@
 		const trailheadsLabels = {
         symbol: {
           type: "text",
-          color: "#272727",
+          color: "#3C3C3C",
           haloColor: "#F0F0F0",
-          haloSize: "2px",
+          haloSize: "1.5px",
           font: {
-            size: "14px",
+            size: "16px",
             weight: "normal"
           }
         },
@@ -116,7 +133,7 @@
       	}
 			
 		const trailheads = new FeatureLayer({
-        	url: "https://services6.arcgis.com/gDvgvk6tNkAnOdO4/arcgis/rest/services/全台重機停車位/FeatureServer/0",
+        	url: "https://services6.arcgis.com/gDvgvk6tNkAnOdO4/arcgis/rest/services/重機停車位0907/FeatureServer/0",
         	outFields: [,"PARKTYPE","COST","NOTE"],
         	popupTemplate: popupTrailheads,
 			renderer: trailheadsRenderer,
