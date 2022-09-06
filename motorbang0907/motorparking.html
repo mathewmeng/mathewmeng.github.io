@@ -61,22 +61,33 @@
 		});
 
 		//locate
-		const track = new Track({
+		const locate = new Locate({
           view: view,
-          graphic: new Graphic({
-            symbol: {
-              type: "simple-marker",
-              size: "14px",
-              color: "Blue",
-              outline: {
-                color: "#E0FFFF",
-                width: "3px"
-              }
-            }
-          }),
-          useHeadingEnabled: false
+          useHeadingEnabled: false,
+          goToOverride: function(view, options) {
+            options.target.scale = 1500;
+            return view.goTo(options.target);
+          }
         });
-        view.ui.add(track, "top-left");
+        view.ui.add(locate, "top-left");
+		
+		//track
+		//const track = new Track({
+        //  view: view,
+        //  graphic: new Graphic({
+        //    symbol: {
+        //      type: "simple-marker",
+        //      size: "14px",
+         //     color: "Blue",
+         //     outline: {
+          //      color: "#E0FFFF",
+         //       width: "3px"
+         //     }
+        //    }
+        //  }),
+         // useHeadingEnabled: false
+        //});
+        //view.ui.add(track, "top-left");
 
 		const search = new Search({  //Add Search widget
       	view: view
