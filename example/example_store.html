@@ -1,0 +1,133 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Example For Commercial</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.24/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.24/"></script>
+
+  <script>
+    require([
+      "esri/config",
+      "esri/WebMap",
+      "esri/views/MapView",
+      "esri/widgets/ScaleBar",
+      "esri/widgets/Legend",
+		"esri/Map",
+		"esri/layers/FeatureLayer",
+		"esri/widgets/Locate",
+		"esri/widgets/Track",
+        "esri/Graphic",
+		"esri/widgets/Search",
+
+    ], function(esriConfig, WebMap, MapView, ScaleBar, Legend,Map,FeatureLayer,Locate,Track,Graphic,Search) {
+
+      esriConfig.apiKey = "AAPKbcfc2e4d6a3d4725b32a568821f4de96t1ryxJb4dkIWaFc97HOtcV6tnLdbiH5t4P0tJ7xN4-Wsxj7VFfMJfH5V_9y1-Rr1";
+
+      const webmap = new WebMap({
+        portalItem: {
+          id: "2ddf96ffae804a32a7959de2748d9bdc"
+        }
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: webmap
+
+      });
+
+      const scalebar = new ScaleBar({
+        view: view
+      });
+
+      view.ui.add(scalebar, "bottom-left");
+
+      //加圖例
+	  //const legend = new Legend ({
+       // view: view
+      //});
+      //view.ui.add(legend, "top-right");
+
+	  
+	 //locate
+	  const locate = new Locate({
+          view: view,
+          useHeadingEnabled: false,
+          goToOverride: function(view, options) {
+            options.target.scale = 1500;
+            return view.goTo(options.target);
+          }
+        });
+        view.ui.add(locate, "top-left");
+	//locate
+
+	
+	//search
+	const search = new Search({  //Add Search widget
+      	view: view
+    	});
+
+    	view.ui.add(search, "top-right"); //Add to the map
+	//search
+
+
+
+
+	const popupTrailheads = {
+        	"title": "{PARKING}",
+        	"content": "<b>Type:</b> {PARKTYPE}<br><b>Cost:</b> {COST}<br><b>Note:</b> {NOTE}<br>"
+      	}
+		  const trailheadsRenderer = {
+        "type": "simple",
+        "symbol": {
+        "type": "simple-marker",
+		"color": [255, 255, 255],
+      	"outline": {
+        	"color": [255, 186, 117],
+        	"width": 2
+        }}}
+		const trailheadsLabels = {
+        symbol: {
+          type: "text",
+          color: "#3C3C3C",
+          haloColor: "#F0F0F0",
+          haloSize: "1.5px",
+          font: {
+            size: "16px",
+            weight: "normal"
+          }
+        },
+		labelPlacement: "above-center",
+        labelExpressionInfo: {
+          expression: "$feature.PARKING"
+        }
+      	}
+			
+		const trailheads = new FeatureLayer({
+        	url: "https://services6.arcgis.com/gDvgvk6tNkAnOdO4/arcgis/rest/services/重機停車位0907/FeatureServer/0",
+        	outFields: [,"PARKTYPE","COST","NOTE"],
+        	popupTemplate: popupTrailheads,
+			renderer: trailheadsRenderer,
+			labelingInfo: [trailheadsLabels]
+      	});
+
+		webmap.add(trailheads);
+
+
+
+
+  });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
