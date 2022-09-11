@@ -56,7 +56,7 @@
 		const view = new MapView({
 			map: map,
 			center: [121.539, 25.039], // Longitude, latitude
-			zoom: 13, // Zoom level
+			zoom: 12, // Zoom level
 			container: "viewDiv" // Div element
 		});
 
@@ -144,7 +144,7 @@
       	}
 			
 		const trailheads = new FeatureLayer({
-        	url: "https://services6.arcgis.com/gDvgvk6tNkAnOdO4/arcgis/rest/services/重機停車位0907/FeatureServer/0",
+        	url: "https://services6.arcgis.com/gDvgvk6tNkAnOdO4/arcgis/rest/services/09111_WFL1/FeatureServer/0",
         	outFields: [,"PARKTYPE","COST","NOTE"],
         	popupTemplate: popupTrailheads,
 			renderer: trailheadsRenderer,
